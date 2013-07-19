@@ -1927,7 +1927,7 @@ namespace Yamtk.UIComponents
             panner.CancelsTouchesInView = true;
             panner.WeakDelegate = this;
 
-            this.View.AddGestureRecognizer(panner);
+            view.AddGestureRecognizer(panner);
             this.panners.Add(panner);
         }
 
