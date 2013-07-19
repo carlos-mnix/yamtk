@@ -27,63 +27,62 @@ namespace Yamtk.UIComponents
     using MonoTouch.UIKit;
     using System.Drawing;
 
-    public class ViewDeckControllerDelegate : NSObject
+    public class UIViewDeckControllerDelegate : NSObject
     {
-
-        public virtual bool ApplyShadow(ViewDeckController viewDeckController, CALayer shadowLayer, RectangleF rect) 
+        public virtual bool ApplyShadow(UIViewDeckController viewDeckController, CALayer shadowLayer, RectangleF rect) 
         {
             return false;
         }
 
-        public virtual void DidPanToOffset(ViewDeckController viewDeckController, float offset) 
+        public virtual void DidPanToOffset(UIViewDeckController viewDeckController, float offset) 
         {
         }
 
-        public virtual void SlideOffsetChanged(ViewDeckController viewDeckController, float offset) 
+        public virtual void SlideOffsetChanged(UIViewDeckController viewDeckController, float offset) 
         {
         }
 
-        public virtual void DidBounceWithClosingController(ViewDeckController viewDeckController, UIViewController openController) 
+        public virtual void DidBounceWithClosingController(UIViewDeckController viewDeckController, UIViewController openController) 
         {
         }
 
-        public virtual bool WillOpenLeftView(ViewDeckController viewDeckController, bool animated) 
-        {
-            return true;
-        }
-
-        public virtual void DidOpenLeftView(ViewDeckController viewDeckController, bool animated) 
-        {
-        }
-
-        public virtual bool WillCloseLeftView(ViewDeckController viewDeckController, bool animated) 
+        public virtual bool WillOpenLeftView(UIViewDeckController viewDeckController, bool animated) 
         {
             return true;
         }
 
-        public virtual void DidCloseLeftView(ViewDeckController viewDeckController, bool animated) 
+        public virtual void DidOpenLeftView(UIViewDeckController viewDeckController, bool animated) 
         {
         }
 
-        public virtual bool WillOpenRightView(ViewDeckController viewDeckController, bool animated) 
-        {
-            return true;
-        }
-
-        public virtual void DidOpenRightView(ViewDeckController viewDeckController, bool animated) 
-        {
-        }
-
-        public virtual bool WillCloseRightView(ViewDeckController viewDeckController, bool animated) 
+        public virtual bool WillCloseLeftView(UIViewDeckController viewDeckController, bool animated) 
         {
             return true;
         }
 
-        public virtual void DidCloseRightView(ViewDeckController viewDeckController, bool animated) 
+        public virtual void DidCloseLeftView(UIViewDeckController viewDeckController, bool animated) 
         {
         }
 
-        public virtual void DidShowCenterView(ViewDeckController viewDeckController, bool animated) 
+        public virtual bool WillOpenRightView(UIViewDeckController viewDeckController, bool animated) 
+        {
+            return true;
+        }
+
+        public virtual void DidOpenRightView(UIViewDeckController viewDeckController, bool animated) 
+        {
+        }
+
+        public virtual bool WillCloseRightView(UIViewDeckController viewDeckController, bool animated) 
+        {
+            return true;
+        }
+
+        public virtual void DidCloseRightView(UIViewDeckController viewDeckController, bool animated) 
+        {
+        }
+
+        public virtual void DidShowCenterView(UIViewDeckController viewDeckController, bool animated) 
         {
         }
     }

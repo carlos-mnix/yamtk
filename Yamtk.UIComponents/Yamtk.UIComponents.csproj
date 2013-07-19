@@ -42,7 +42,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Compile Include="ViewDeck\ViewDeckController.cs" />
-    <Compile Include="ViewDeck\ViewDeckControllerDelegate.cs" />
+    <Compile Include="ViewDeck\UIViewDeckController.cs" />
+    <Compile Include="ViewDeck\UIViewDeckControllerDelegate.cs" />
   </ItemGroup>
 </Project>

@@ -72,7 +72,7 @@ namespace ViewDeckSample
 			};
 
 			//Checkout all customization options at https://github.com/Inferis/ViewDeck
-			var deckController = new ViewDeckController(centerController, leftController, rightController);
+			var deckController = new UIViewDeckController(centerController, leftController, rightController);
 
 			window.RootViewController = deckController;
 

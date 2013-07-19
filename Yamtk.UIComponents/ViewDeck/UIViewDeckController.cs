@@ -67,7 +67,7 @@ namespace Yamtk.UIComponents
     /// <remarks>
     /// It is sealed because it uses weakdelegates which don't work in sub-classes
     /// </remarks>
-    public sealed class ViewDeckController : UIViewController
+    public sealed class UIViewDeckController : UIViewController
     {
         #region Private Fields
 
@@ -108,13 +108,11 @@ namespace Yamtk.UIComponents
 
         #region Constructors
 
-        public ViewDeckController(UIViewController centerController)
+        public UIViewDeckController(UIViewController centerController)
         {
             this.panners = new List<UIGestureRecognizer>();
             this.Enabled = true;
             this.Elastic = true;
-
-// ??             this.originalShadowColor = UIColor.Clear;
 
             this.RotationBehavior = ViewDeckRotationBehavior.KeepsLedgeSizes;
 
@@ -128,12 +126,12 @@ namespace Yamtk.UIComponents
         }
 
 
-        public ViewDeckController(UIViewController centerController, UIViewController leftController) : this(centerController)
+        public UIViewDeckController(UIViewController centerController, UIViewController leftController) : this(centerController)
         {
             this.LeftController = leftController;
         }
 
-        public ViewDeckController(UIViewController centerController, UIViewController leftController, UIViewController rightController) : this(centerController)
+        public UIViewDeckController(UIViewController centerController, UIViewController leftController, UIViewController rightController) : this(centerController)
         {
             this.LeftController = leftController;
             this.RightController = rightController;
@@ -225,8 +223,6 @@ namespace Yamtk.UIComponents
         /// </summary>
         public bool Elastic { get; set; }
 
-        /// <summary>
-        /// </summary>
         public float RightLedge
         {
             get
@@ -240,8 +236,6 @@ namespace Yamtk.UIComponents
             }
         }
 
-        /// <summary>
-        /// </summary>
         public float LeftLedge
         {
             get
@@ -255,8 +249,6 @@ namespace Yamtk.UIComponents
             }
         }
         
-        /// <summary>
-        /// </summary>
         public float MaxLedge
         {
             get
@@ -456,7 +448,7 @@ namespace Yamtk.UIComponents
             }
         }
 
-        public ViewDeckControllerDelegate Delegate
+        public UIViewDeckControllerDelegate Delegate
         {
             get;
             set;
@@ -856,7 +848,7 @@ namespace Yamtk.UIComponents
             return this.ToggleLeftView(animated, null);
         }
 
-        public bool ToggleLeftView(bool animated, Action<ViewDeckController> completed)
+        public bool ToggleLeftView(bool animated, Action<UIViewDeckController> completed)
         {
             if (this.LeftControllerIsClosed) 
             {
@@ -873,17 +865,17 @@ namespace Yamtk.UIComponents
             return this.OpenLeftView(animated, null);
         }
 
-        public bool OpenLeftView(bool animated, Action<ViewDeckController> completed)
+        public bool OpenLeftView(bool animated, Action<UIViewDeckController> completed)
         {
             return this.OpenLeftView(animated, UIViewAnimationOptions.CurveEaseInOut, true, completed);
         }
         
-        public bool OpenLeftViewBouncing(Action<ViewDeckController> bounced)
+        public bool OpenLeftViewBouncing(Action<UIViewDeckController> bounced)
         {
             return this.OpenLeftViewBouncing(bounced, null);
         }
 
-        public bool OpenLeftViewBouncing(Action<ViewDeckController> bounced, Action<ViewDeckController>completed) 
+        public bool OpenLeftViewBouncing(Action<UIViewDeckController> bounced, Action<UIViewDeckController>completed) 
         {
             return this.OpenLeftViewBouncing(bounced, true, completed);
         }
@@ -893,17 +885,17 @@ namespace Yamtk.UIComponents
             return this.CloseLeftView(animated, null);
         }
 
-        public bool CloseLeftView(bool animated, Action<ViewDeckController> completed)
+        public bool CloseLeftView(bool animated, Action<UIViewDeckController> completed)
         {
             return this.CloseLeftView(animated,true, completed);
         }
         
-        public bool CloseLeftViewBouncing(Action<ViewDeckController> bounced) 
+        public bool CloseLeftViewBouncing(Action<UIViewDeckController> bounced) 
         {
             return this.CloseLeftViewBouncing(bounced, null);
         }
 
-        public bool CloseLeftViewBouncing(Action<ViewDeckController> bounced, Action<ViewDeckController> completed) 
+        public bool CloseLeftViewBouncing(Action<UIViewDeckController> bounced, Action<UIViewDeckController> completed) 
         {
             return this.CloseLeftViewBouncing(bounced, true, completed);
         }
@@ -928,7 +920,7 @@ namespace Yamtk.UIComponents
             return this.ToggleRightView(animated, null);
         }
 
-        public bool ToggleRightView(bool animated, Action<ViewDeckController> completed) 
+        public bool ToggleRightView(bool animated, Action<UIViewDeckController> completed) 
         {
             if (this.RightControllerIsClosed) 
             {
@@ -945,27 +937,27 @@ namespace Yamtk.UIComponents
             return this.OpenRightView(animated, null);
         }
 
-        public bool OpenRightView(bool animated, Action<ViewDeckController> completed) 
+        public bool OpenRightView(bool animated, Action<UIViewDeckController> completed) 
         {
             return this.OpenRightView(animated, UIViewAnimationOptions.CurveEaseInOut,true, completed);
         }
         
-        public bool CloseRightViewBouncing(Action<ViewDeckController> bounced) 
+        public bool CloseRightViewBouncing(Action<UIViewDeckController> bounced) 
         {
             return this.CloseRightViewBouncing(bounced, null);
         }
 
-        public bool CloseRightViewBouncing(Action<ViewDeckController> bounced, Action<ViewDeckController> completed) 
+        public bool CloseRightViewBouncing(Action<UIViewDeckController> bounced, Action<UIViewDeckController> completed) 
         {
             return this.CloseRightViewBouncing(bounced, true, completed);
         }
         
-        public bool OpenRightViewBouncing(Action<ViewDeckController> bounced) 
+        public bool OpenRightViewBouncing(Action<UIViewDeckController> bounced) 
         {
             return this.OpenRightViewBouncing(bounced, null);
         }
 
-        public bool OpenRightViewBouncing(Action<ViewDeckController> bounced, Action<ViewDeckController> completed) 
+        public bool OpenRightViewBouncing(Action<UIViewDeckController> bounced, Action<UIViewDeckController> completed) 
         {
             return this.OpenRightViewBouncing(bounced, true, completed);
         }
@@ -975,7 +967,7 @@ namespace Yamtk.UIComponents
             return this.CloseRightView(animated, null);
         }
 
-        public bool CloseRightView(bool animated, Action<ViewDeckController> completed)
+        public bool CloseRightView(bool animated, Action<UIViewDeckController> completed)
         {
             return this.CloseRightView(animated, UIViewAnimationOptions.CurveEaseInOut, true, completed);
         }
@@ -1220,7 +1212,7 @@ namespace Yamtk.UIComponents
             this.preRotationWidth = 0;
         }
 
-        private void ShowCenterView(bool animated, Action<ViewDeckController> completed)
+        private void ShowCenterView(bool animated, Action<UIViewDeckController> completed)
         {
             bool mustRunCompletion = completed != null;
 
@@ -1242,12 +1234,12 @@ namespace Yamtk.UIComponents
             }
         }
 
-        private bool OpenLeftView(bool animated, bool callDelegate, Action<ViewDeckController> completed)
+        private bool OpenLeftView(bool animated, bool callDelegate, Action<UIViewDeckController> completed)
         {
             return this.OpenLeftView(animated, UIViewAnimationOptions.CurveEaseInOut, callDelegate, completed);
         }
 
-        private bool OpenLeftView(bool animated, UIViewAnimationOptions options, bool callDelegate, Action<ViewDeckController> completed)
+        private bool OpenLeftView(bool animated, UIViewAnimationOptions options, bool callDelegate, Action<UIViewDeckController> completed)
         {
             if (this.LeftController == null || FloatEqual(this.SlidingControllerView.Frame.GetMinX(), this.LeftLedge)) return true;
 
@@ -1280,12 +1272,12 @@ namespace Yamtk.UIComponents
             return true;
         }
 
-        private bool OpenLeftViewBouncing(Action<ViewDeckController> bounced, bool callDelegate, Action<ViewDeckController> completed) 
+        private bool OpenLeftViewBouncing(Action<UIViewDeckController> bounced, bool callDelegate, Action<UIViewDeckController> completed) 
         {
             return this.OpenLeftViewBouncing(bounced, UIViewAnimationOptions.CurveEaseInOut, true, completed);
         }
 
-        private bool OpenLeftViewBouncing(Action<ViewDeckController> bounced, UIViewAnimationOptions options, bool callDelegate, Action<ViewDeckController> completed)
+        private bool OpenLeftViewBouncing(Action<UIViewDeckController> bounced, UIViewAnimationOptions options, bool callDelegate, Action<UIViewDeckController> completed)
         {
             if (this.LeftController == null || FloatEqual(this.SlidingControllerView.Frame.GetMinX(), this.LeftLedge)) return true;
             
@@ -1333,12 +1325,12 @@ namespace Yamtk.UIComponents
             return true;
         }
 
-        private bool CloseLeftView(bool animated, bool callDelegate, Action<ViewDeckController> completed) 
+        private bool CloseLeftView(bool animated, bool callDelegate, Action<UIViewDeckController> completed) 
         {
             return this.CloseLeftView(animated, UIViewAnimationOptions.CurveEaseInOut, callDelegate, completed);
         }
 
-        private bool CloseLeftView(bool animated, UIViewAnimationOptions options, bool callDelegate, Action<ViewDeckController> completed) 
+        private bool CloseLeftView(bool animated, UIViewAnimationOptions options, bool callDelegate, Action<UIViewDeckController> completed) 
         {
             if (this.LeftControllerIsClosed) return true;
             
@@ -1370,7 +1362,7 @@ namespace Yamtk.UIComponents
             return true;
         }
 
-        private bool CloseLeftViewBouncing(Action<ViewDeckController> bounced, bool callDelegate, Action<ViewDeckController> completed) 
+        private bool CloseLeftViewBouncing(Action<UIViewDeckController> bounced, bool callDelegate, Action<UIViewDeckController> completed) 
         {
             if (this.LeftControllerIsClosed) return true;
             
@@ -1418,12 +1410,12 @@ namespace Yamtk.UIComponents
             return true;
         }
 
-        private bool OpenRightView(bool animated, bool callDelegate, Action<ViewDeckController> completed)
+        private bool OpenRightView(bool animated, bool callDelegate, Action<UIViewDeckController> completed)
         {
             return this.OpenRightView(animated, UIViewAnimationOptions.CurveEaseInOut, callDelegate, completed);
         }
 
-        private bool OpenRightView(bool animated, UIViewAnimationOptions options, bool callDelegate, Action<ViewDeckController> completed)
+        private bool OpenRightView(bool animated, UIViewAnimationOptions options, bool callDelegate, Action<UIViewDeckController> completed)
         {
             if (this.RightController == null || FloatEqual(this.SlidingControllerView.Frame.GetMaxX(), this.RightLedge)) return true;
             
@@ -1460,12 +1452,12 @@ namespace Yamtk.UIComponents
             return true;
         }
 
-        private bool OpenRightViewBouncing(Action<ViewDeckController> bounced, bool callDelegate, Action<ViewDeckController> completed)
+        private bool OpenRightViewBouncing(Action<UIViewDeckController> bounced, bool callDelegate, Action<UIViewDeckController> completed)
         {
             return this.OpenRightViewBouncing(bounced, UIViewAnimationOptions.CurveEaseInOut, true, completed);
         }
 
-        private bool OpenRightViewBouncing(Action<ViewDeckController> bounced, UIViewAnimationOptions options, bool callDelegate, Action<ViewDeckController> completed)
+        private bool OpenRightViewBouncing(Action<UIViewDeckController> bounced, UIViewAnimationOptions options, bool callDelegate, Action<UIViewDeckController> completed)
         {
             if (this.RightController == null || FloatEqual(this.SlidingControllerView.Frame.GetMinX(), this.RightLedge)) return true;
             
@@ -1513,12 +1505,12 @@ namespace Yamtk.UIComponents
             return true;
         }
 
-        private bool CloseRightView(bool animated, bool callDelegate, Action<ViewDeckController> completed)
+        private bool CloseRightView(bool animated, bool callDelegate, Action<UIViewDeckController> completed)
         {
             return this.CloseRightView(animated, UIViewAnimationOptions.CurveEaseInOut, callDelegate, completed);
         }
 
-        private bool CloseRightView(bool animated, UIViewAnimationOptions options, bool callDelegate, Action<ViewDeckController> completed) 
+        private bool CloseRightView(bool animated, UIViewAnimationOptions options, bool callDelegate, Action<UIViewDeckController> completed) 
         {
             if (this.RightControllerIsClosed) return true;
             
@@ -1550,7 +1542,7 @@ namespace Yamtk.UIComponents
             return true;
         }
 
-        private bool CloseRightViewBouncing(Action<ViewDeckController> bounced, bool callDelegate, Action<ViewDeckController> completed) 
+        private bool CloseRightViewBouncing(Action<UIViewDeckController> bounced, bool callDelegate, Action<UIViewDeckController> completed) 
         {
             if (this.RightControllerIsClosed) return true;
             
