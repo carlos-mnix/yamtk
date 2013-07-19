@@ -21,7 +21,8 @@
 
 namespace Yamtk.UIComponents
 {
-    using System;
+	using System;
+	using System.Drawing;
     using MonoTouch.Foundation;
     using MonoTouch.CoreAnimation;
     using MonoTouch.UIKit;
@@ -29,6 +30,8 @@ namespace Yamtk.UIComponents
 
     public class UIViewDeckControllerDelegate : NSObject
     {
+		private RectangleF OriginalCenterPanningFrame = RectangleF.Empty;
+
         public virtual bool ApplyShadow(UIViewDeckController viewDeckController, CALayer shadowLayer, RectangleF rect) 
         {
             return false;
@@ -53,6 +56,15 @@ namespace Yamtk.UIComponents
 
         public virtual void DidOpenLeftView(UIViewDeckController viewDeckController, bool animated) 
         {
+			if(viewDeckController.CenterPanningView != null)
+			{
+				if(OriginalCenterPanningFrame == RectangleF.Empty)
+				{
+					OriginalCenterPanningFrame = viewDeckController.CenterPanningView.Frame;
+				}
+
+				viewDeckController.CenterPanningView.Frame = new RectangleF(0f, viewDeckController.CenterPanningView.Frame.Top, viewDeckController.CenterController.View.Frame.Width, viewDeckController.CenterController.View.Frame.Height - viewDeckController.CenterPanningView.Frame.Top);
+			}
         }
 
         public virtual bool WillCloseLeftView(UIViewDeckController viewDeckController, bool animated) 
@@ -62,6 +74,10 @@ namespace Yamtk.UIComponents
 
         public virtual void DidCloseLeftView(UIViewDeckController viewDeckController, bool animated) 
         {
+			if(viewDeckController.CenterPanningView != null)
+			{
+				viewDeckController.CenterPanningView.Frame = OriginalCenterPanningFrame;
+			}
         }
 
         public virtual bool WillOpenRightView(UIViewDeckController viewDeckController, bool animated) 

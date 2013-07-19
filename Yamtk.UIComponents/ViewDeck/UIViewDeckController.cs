@@ -37,7 +37,10 @@ namespace Yamtk.UIComponents
         NoPanning,
         FullViewPanning,
         NavigationBarPanning,
-        PanningViewPanning
+		PanningViewPanning,
+		CenterViewLeftSidePanning,
+		CenterViewRightSidePanning,
+		CenterViewBothSidePanning
     }
 
     public enum CenterHiddenInteractivity
@@ -104,7 +107,7 @@ namespace Yamtk.UIComponents
         private float _maxLedge;
         private bool _automaticallyUpdateTabBarItems;
 
-        #endregion
+		#endregion
 
         #region Constructors
 
@@ -112,12 +115,15 @@ namespace Yamtk.UIComponents
         {
             this.panners = new List<UIGestureRecognizer>();
             this.Enabled = true;
-            this.Elastic = true;
+			this.Elastic = true;
 
             this.RotationBehavior = ViewDeckRotationBehavior.KeepsLedgeSizes;
 
             this.PanningMode = ViewDeckPanningMode.FullViewPanning;
+			this.PanningCancelsTouch = true;
             this.centerHiddenInteractivity = CenterHiddenInteractivity.UserInteractive;
+
+			this.SidePanningWidthPercentage = 0.05f;
 
             this.LeftLedge = 44;
             this.RightLedge = 44;
@@ -140,6 +146,13 @@ namespace Yamtk.UIComponents
         #endregion
 
         #region Public Properties
+
+		/// <summary>
+		/// Gets or sets the side panning width percentage.
+		/// i.e. A panner with 30% of the CenterView's width means SidePanningWidthPercentage = 0.3f
+		/// </summary>
+		/// <value>The side panning width percentage.</value>
+		public float SidePanningWidthPercentage { get; set; }
 
         /// <summary>
         /// </summary>
@@ -196,6 +209,22 @@ namespace Yamtk.UIComponents
             }
         }
         
+		public bool _mPanningCancelsTouch;
+		public bool PanningCancelsTouch 
+		{
+			get
+			{
+				return _mPanningCancelsTouch;
+
+			}
+			set
+			{
+				this.RemovePanners();
+				_mPanningCancelsTouch = value;
+				this.AddPanners();
+			}
+		}
+
         public override string Title
         {
             get
@@ -362,6 +391,9 @@ namespace Yamtk.UIComponents
                 }
             }
         }
+
+		internal UIView CenterPanningView;
+
 
         /// <summary>
         /// </summary>
@@ -615,13 +647,28 @@ namespace Yamtk.UIComponents
             this.View.AddObserver(this, new NSString("bounds"),  NSKeyValueObservingOptions.New, IntPtr.Zero);
             if (this.viewAppeared)
             {
-            this.CenterController.AddObserver(this, new NSString("title"), 0, IntPtr.Zero);
+            	this.CenterController.AddObserver(this, new NSString("title"), 0, IntPtr.Zero);
             }
 
             NSAction applyViews = () => 
             {        
                 this.CenterController.View.RemoveFromSuperview();
                 this.centerView.AddSubview(this.CenterController.View);
+				//TODO improve this
+				if(CenterPanningView != null)
+				{
+					if(CenterPanningView.Superview != null)
+					{
+						CenterPanningView.RemoveFromSuperview();
+					}
+
+					//FIXME
+					float navBarHeight = 44f;
+					CenterPanningView.Frame = new RectangleF(0f, navBarHeight, this.centerView.Frame.Width * SidePanningWidthPercentage, this.centerView.Frame.Height - navBarHeight);
+					this.centerView.AddSubview(CenterPanningView);
+				}
+
+
 
                 if (this.LeftController != null)
                 {
@@ -1915,8 +1962,7 @@ namespace Yamtk.UIComponents
             if (view == null) return;
 
             UIPanGestureRecognizer panner = new UIPanGestureRecognizer(this, new Selector("panned:"));
-
-            panner.CancelsTouchesInView = true;
+			panner.CancelsTouchesInView = PanningCancelsTouch;
             panner.WeakDelegate = this;
 
             view.AddGestureRecognizer(panner);
@@ -1947,6 +1993,8 @@ namespace Yamtk.UIComponents
                         this.AddPanner(this.NavigationController.NavigationBar);
                     }
 
+
+
                     break;
                     
                 case ViewDeckPanningMode.NavigationBarPanning:
@@ -1973,6 +2021,32 @@ namespace Yamtk.UIComponents
                     }
 
                     break;
+
+				case ViewDeckPanningMode.CenterViewLeftSidePanning:
+					if(this.CenterPanningView == null)
+					{
+						this.CenterPanningView = new UIView();
+					}
+
+					this.AddPanner(this.CenterPanningView);
+
+					if(CenterPanningView != null)
+					{
+						if(CenterPanningView.Superview != null)
+						{
+							CenterPanningView.RemoveFromSuperview();
+						}
+						//FIXME
+						float navBarHeight = 44f;
+						CenterPanningView.Frame = new RectangleF(0f, navBarHeight, this.centerView.Frame.Width * SidePanningWidthPercentage, this.centerView.Frame.Height - navBarHeight);
+						this.centerView.AddSubview(CenterPanningView);
+					}
+
+					break;
+
+				default:
+					Console.WriteLine(String.Format("AddPanners ignored. {0} mode is not supported yet.", this.PanningMode));
+					break;
             }
         }
 
@@ -2126,7 +2200,7 @@ namespace Yamtk.UIComponents
                     controller.View.Frame = currentFrame;
                     controller.View.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
                     controller.View.Hidden = false;
-                    this.centerView.AddSubview(controller.View);
+					this.centerView.AddSubview(controller.View);
                     
                     if (barHidden) 
                         navController.NavigationBarHidden = false;
