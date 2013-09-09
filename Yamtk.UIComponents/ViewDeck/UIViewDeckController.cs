@@ -662,7 +662,7 @@ namespace Yamtk.UIComponents
 						CenterPanningView.RemoveFromSuperview();
 					}
 
-					//FIXME
+					//FIXME: Carlos - Se for suportar iPhone, obter altura dinamicamente
 					float navBarHeight = 44f;
 					CenterPanningView.Frame = new RectangleF(0f, navBarHeight, this.centerView.Frame.Width * SidePanningWidthPercentage, this.centerView.Frame.Height - navBarHeight);
 					this.centerView.AddSubview(CenterPanningView);
@@ -2036,7 +2036,7 @@ namespace Yamtk.UIComponents
 						{
 							CenterPanningView.RemoveFromSuperview();
 						}
-						//FIXME
+						//FIXME: Carlos - Se for suportar iPhone, obter altura dinamicamente
 						float navBarHeight = 44f;
 						CenterPanningView.Frame = new RectangleF(0f, navBarHeight, this.centerView.Frame.Width * SidePanningWidthPercentage, this.centerView.Frame.Height - navBarHeight);
 						this.centerView.AddSubview(CenterPanningView);
