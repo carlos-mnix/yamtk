@@ -26,7 +26,6 @@ namespace Yamtk.UIComponents
     using MonoTouch.Foundation;
     using MonoTouch.CoreAnimation;
     using MonoTouch.UIKit;
-    using System.Drawing;
 
     public class UIViewDeckControllerDelegate : NSObject
     {
